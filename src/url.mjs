@@ -22,8 +22,14 @@ import { lockdownRe } from './lib/lockdown-re'
 export const urlReString = '(?:([a-z][a-z0-9+.-]*):\\/{0,2}([^/?#]*)(\\/[^?#]*)?(?:\\?([^#]*))?(?:#(.*))?)'
 
 /**
- * Matches a valid, generic URL. Provides capture groups 1 (schema), 2 (server/authority), 3 (path), 4 (query part), 5 (
- * intra-page link/fragment.) Note, a URL always has scheme, and at a minimum a server/authority or path, and may have
+ * Matches a valid, generic URL. Provides capture groups:
+ * - Group 1: schema
+ * - Group 2: server/authority
+ * - Group 3: path
+ * - Group 4: query part
+ * - Group 5: intra-page link/fragment
+ *
+ * Note, a URL always has scheme, and at a minimum a server/authority or path, and may have
  * both. The query and fragment components are always optional. For general usage, you might want to use the more
  * specific Res for specific protocols or the `commonUrlRe`.
  * @category URL
@@ -33,8 +39,10 @@ export const urlRe = lockdownRe(urlReString, 'u')
 export const mailtoUrlReString = `(?:mailto:(${emailReString}))`
 
 /**
- * Matches a valid 'mailto:' URL. Provides a single capture group, 1 (email address).' You must use the either the 'u'
- * or 'v' flag when using the Re string.
+ * Matches a valid 'mailto:' URL. Provides a single capture group:
+ * - Group 1: email address
+ *
+ * You must use the either the 'u' or 'v' flag when using the Re string.
  * @category URL
  */
 export const mailtoUrlRe = lockdownRe(mailtoUrlReString, 'u')
@@ -51,9 +59,17 @@ export const httpUrlReString =
 `(https?):\\/\\/${userPlusPassReString}?${hostOrIPReString}${portReString}?${urlPathReString}?${urlQueryAndFragementReString}`
 
 /**
- * Matches a valid 'http/https' URL. Provides capture groups 1 (protocol), 2 (username), 3 (user password), 4 (host or
- * IP), 5 (port), 6 (path), 7 (query string), and 8 (fragment). You must use the either the 'u' or 'v' flag when using
- * the Re string.
+ * Matches a valid 'http/https' URL. Provides capture groups:
+ * - Group 1: protocol
+ * - Group 2: username
+ * - Group 3: user password
+ * - Group 4: host or IP
+ * - Group 5: port
+ * - Group 6: path
+ * - Group 7: query string
+ * - Group 8: fragment
+ *
+ * You must use the either the 'u' or 'v' flag when using the Re string.
  * @category URL
  */
 export const httpUrlRe = lockdownRe(httpUrlReString, 'u')
@@ -61,8 +77,14 @@ export const httpUrlRe = lockdownRe(httpUrlReString, 'u')
 export const ftpUrlReString = `(?:ftp:\\/\\/${userPlusPassReString}?${hostOrIPReString}${portReString}?${urlPathReString}?)`
 
 /**
- * Matches a valid 'ftp' URL. Provides capture groups 1 (username), 2 (user password), 3 (host or IP), 4 (port), 5
- * (path). You must use the either the 'u' or 'v' flag when using the Re string.
+ * Matches a valid 'ftp' URL. Provides capture groups:
+ * - Group 1: username
+ * - Group 2: user password
+ * - Group 3: host or IP
+ * - Group 4: port
+ * - Group 5: path
+ *
+ * You must use the either the 'u' or 'v' flag when using the Re string.
  * @category URL
  */
 export const ftpUrlRe = lockdownRe(ftpUrlReString, 'u')
@@ -70,8 +92,12 @@ export const ftpUrlRe = lockdownRe(ftpUrlReString, 'u')
 export const fileUrlReString = `(?:file:\\/\\/${hostOrIPReString}?${urlPathReString})`
 
 /**
- * Matches a valid 'file' URL. Provides capture groups 1 (host), 2 (port), 3 (path). You must use the either the 'u' or
- * 'v' flag when using the Re string.
+ * Matches a valid 'file' URL. Provides capture groups:
+ * - Group 1: host
+ * - Group 2: port
+ * - Group 3: path
+ *
+ * You must use the either the 'u' or 'v' flag when using the Re string.
  * @category URL
  */
 export const fileUrlRe = lockdownRe(fileUrlReString, 'u')

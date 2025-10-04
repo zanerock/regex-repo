@@ -104,6 +104,8 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
     - [`integerRe`](#integerRe): Matches an integer.
     - [`plainFloatRe`](#plainFloatRe): Matches a plain (non-scientific notation) float.
     - [`scientificFloatRe`](#scientificFloatRe): Matches a scientific notation float.
+  - <span id="global-constant-semver-index"></span>_semver_
+    - [`semver2Re`](#semver2Re): Matches a semantic version string according to the Semantic Versioning 2.0.0 specification.
   - <span id="global-constant-URL-index"></span>_URL_
     - [`commonUrlRe`](#commonUrlRe): Matches any of the "common" web URL types: 'mailto', 'http/https', 'ftp', and 'file'.
     - [`fileUrlRe`](#fileUrlRe): Matches a valid 'file' URL.
@@ -241,89 +243,139 @@ Matches a 0 to 360 float as used in CSS color specifications.
 Matches a 0 to 360 integer as used in CSS color specifications.
 
 <a id="intlDateRe"></a>
-### `intlDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L114)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `intlDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L155)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an international style 'YYYY/MM/DD' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for
-month and day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups 1 (BCE/CE
-indicator), 2 (year), 3 (month), 4 (day).
+month and day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
+- Group 1: BCE/CE indicator
+- Group 2: year
+- Group 3: month
+- Group 4: day
 
 <a id="iso8601DateRe"></a>
-### `iso8601DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L52)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L75)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z. Provides matching
-groups 1 (year), 3 (month), and 4 (day of month), 5 (week of year), 6 (day of week date), and 7 (ordinal or Julian
-date), 8 (special end of day time), 10 (hour), 11 (decimal fraction of hour), 13 (minute), 14 (decimal fraction of
-minute), 15 (seconds), 16 (decimal fraction of a second), and 17 (timezone designation). (Groups 2, 11, and 13 are
-internal back references.)
+Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z. Provides matching groups:
+- Group 1: year
+- Group 3: month
+- Group 4: day of month
+- Group 5: week of year
+- Group 6: day of week date
+- Group 7: ordinal or Julian date
+- Group 8: special end of day time
+- Group 10: hour
+- Group 11: decimal fraction of hour
+- Group 13: minute
+- Group 14: decimal fraction of minute
+- Group 15: seconds
+- Group 16: decimal fraction of a second
+- Group 17: timezone designation
+
+(Groups 2, 11, and 13 are internal back references.)
 
 <a id="iso8601DateReString"></a>
-### `iso8601DateReString` <sup>↱<sup>[source code](./src/date-times.mjs#L42)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateReString` <sup>↱<sup>[source code](./src/date-times.mjs#L53)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches the time designation portion of an ISO 8601 date+time. Provides matching groups 1 (special end of day time),
-3 (hours), 3 (fraction of hour), 5 (minutes), 6 (fraction of minute), 7 (seconds), and 8 (fraction of seconds).
+Matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
+- Group 1: special end of day time
+- Group 3: hours
+- Group 4: fraction of hour
+- Group 5: minutes
+- Group 6: fraction of minute
+- Group 7: seconds
+- Group 8: fraction of seconds
 
 <a id="iso8601DateTimeRe"></a>
-### `iso8601DateTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L61)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L84)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) _requiring_ both date and time components. See
 [iso8601DateRe](#iso8601DateRe) for matching groups.
 
 <a id="iso8601DayReString"></a>
-### `iso8601DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L26)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L31)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups 1 (
-year), 3 (month), and 4 (day of month), 5 (week of year), 6 (day of week date), and 7 (ordinal or Julian date).
+An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups:
+- Group 1: year
+- Group 3: month
+- Group 4: day of month
+- Group 5: week of year
+- Group 6: day of week date
+- Group 7: ordinal or Julian date
 
 <a id="militaryTimeRe"></a>
-### `militaryTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L122)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `militaryTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L166)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches military time style 'HHMM' string. Provides capture groups 1 (special 2400 time), 2 (hour), and 3 (minutes).
+Matches military time style 'HHMM' string. Provides capture groups:
+- Group 1: special 2400 time
+- Group 2: hour
+- Group 3: minutes
 
 <a id="rfc2822DateRe"></a>
-### `rfc2822DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L92)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `rfc2822DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L127)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992
-12:12 UTC'. Provides matching groups 1 (day of week), 2 (day of month), 3 (month name), and 4 (year), 5 (hour), 6
-(min), 7 (second), and 8 (time zone).
+Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992 12:12 UTC'. Provides matching groups:
+- Group 1: day of week
+- Group 2: day of month
+- Group 3: month name
+- Group 4: year
+- Group 5: hour
+- Group 6: min
+- Group 7: second
+- Group 8: time zone
 
 <a id="rfc2822DayReString"></a>
-### `rfc2822DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L68)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `rfc2822DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L94)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups 1
-(day of week name), 2 (day of month), 3 (month name), 4 (year).
+An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
+- Group 1: day of week name
+- Group 2: day of month
+- Group 3: month name
+- Group 4: year
 
 <a id="rfc2822TimeReString"></a>
-### `rfc2822TimeReString` <sup>↱<sup>[source code](./src/date-times.mjs#L82)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `rfc2822TimeReString` <sup>↱<sup>[source code](./src/date-times.mjs#L111)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups 1
-(hour), 2 (minutes), 3 (seconds), and 4 (timezone).
+An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
+- Group 1: hour
+- Group 2: minutes
+- Group 3: seconds
+- Group 4: timezone
 
 <a id="timeRe"></a>
-### `timeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L132)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `timeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L179)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a twelve hour time designation, requires AM or PM designation. Allows optional leading 0 in hour. Provides
-matching groups 1 (hour), 2 (minutes), 3 (seconds, without decimal fractions), 4 (decimal fraction seconds), and 5 (
-AM/PM indicator).
+Matches a twelve hour time designation, requires AM or PM designation. Allows optional leading 0 in hour. Provides matching groups:
+- Group 1: hour
+- Group 2: minutes
+- Group 3: seconds, without decimal fractions
+- Group 4: decimal fraction seconds
+- Group 5: AM/PM indicator
 
 <a id="timezoneReString"></a>
-### `timezoneReString` <sup>↱<sup>[source code](./src/date-times.mjs#L75)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `timezoneReString` <sup>↱<sup>[source code](./src/date-times.mjs#L101)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides
-matching groups 1 (timezone).
+An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
+- Group 1: timezone
 
 <a id="twentyFourHourTimeRe"></a>
-### `twentyFourHourTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L142)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `twentyFourHourTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L192)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a twenty-four hour time designationAllows optional leading 0 in hour. Provides matching groups 1 (special
-24:00 designation with optional seconds), 2 (hour), 3 (minutes), 4 (seconds, without decimal fractions), 5 (decimal
-fraction seconds).
+Matches a twenty-four hour time designationAllows optional leading 0 in hour. Provides matching groups:
+- Group 1: special 24:00 designation with optional seconds
+- Group 2: hour
+- Group 3: minutes
+- Group 4: seconds, without decimal fractions
+- Group 5: decimal fraction seconds
 
 <a id="usDateRe"></a>
-### `usDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L104)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `usDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L142)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a US style 'MM/DD/YYYY' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for month and
-day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups 1 (month), 2 (day of
-month), 3 (BCE/CE indicator), and 4 (year).
+day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
+- Group 1: month
+- Group 2: day of month
+- Group 3: BCE/CE indicator
+- Group 4: year
 
 <a id="domainLabelRe"></a>
 ### `domainLabelRe` <sup>↱<sup>[source code](./src/domain-name.mjs#L48)</sup></sup> <sup>⇧<sup>[Domain names index](#global-constant-Domain-names-index) | [global index](#global-constant-index)</sup></sup>
@@ -422,42 +474,79 @@ Matches a plain (non-scientific notation) float.
 
 Matches a scientific notation float.
 
+<a id="semver2Re"></a>
+### `semver2Re` <sup>↱<sup>[source code](./src/semver.mjs#L31)</sup></sup> <sup>⇧<sup>[semver index](#global-constant-semver-index) | [global index](#global-constant-index)</sup></sup>
+
+Matches a semantic version string according to the Semantic Versioning 2.0.0 specification.
+Provides matching groups:
+- Group 1: major version
+- Group 2: minor version
+- Group 3: patch version
+- Group 4: pre-release version (if present)
+- Group 5: build metadata (if present)
+
 <a id="commonUrlRe"></a>
-### `commonUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L86)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `commonUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L112)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches any of the "common" web URL types: 'mailto', 'http/https', 'ftp', and 'file'. You must use the either the
 'u' or 'v' flag when using the Re string.
 
 <a id="fileUrlRe"></a>
-### `fileUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L77)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `fileUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L103)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a valid 'file' URL. Provides capture groups 1 (host), 2 (port), 3 (path). You must use the either the 'u' or
-'v' flag when using the Re string.
+Matches a valid 'file' URL. Provides capture groups:
+- Group 1: host
+- Group 2: port
+- Group 3: path
+
+You must use the either the 'u' or 'v' flag when using the Re string.
 
 <a id="ftpUrlRe"></a>
-### `ftpUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L68)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `ftpUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L90)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a valid 'ftp' URL. Provides capture groups 1 (username), 2 (user password), 3 (host or IP), 4 (port), 5
-(path). You must use the either the 'u' or 'v' flag when using the Re string.
+Matches a valid 'ftp' URL. Provides capture groups:
+- Group 1: username
+- Group 2: user password
+- Group 3: host or IP
+- Group 4: port
+- Group 5: path
+
+You must use the either the 'u' or 'v' flag when using the Re string.
 
 <a id="httpUrlRe"></a>
-### `httpUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L59)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `httpUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L75)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a valid 'http/https' URL. Provides capture groups 1 (protocol), 2 (username), 3 (user password), 4 (host or
-IP), 5 (port), 6 (path), 7 (query string), and 8 (fragment). You must use the either the 'u' or 'v' flag when using
-the Re string.
+Matches a valid 'http/https' URL. Provides capture groups:
+- Group 1: protocol
+- Group 2: username
+- Group 3: user password
+- Group 4: host or IP
+- Group 5: port
+- Group 6: path
+- Group 7: query string
+- Group 8: fragment
+
+You must use the either the 'u' or 'v' flag when using the Re string.
 
 <a id="mailtoUrlRe"></a>
-### `mailtoUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L40)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `mailtoUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L48)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a valid 'mailto:' URL. Provides a single capture group, 1 (email address).' You must use the either the 'u'
-or 'v' flag when using the Re string.
+Matches a valid 'mailto:' URL. Provides a single capture group:
+- Group 1: email address
+
+You must use the either the 'u' or 'v' flag when using the Re string.
 
 <a id="urlRe"></a>
-### `urlRe` <sup>↱<sup>[source code](./src/url.mjs#L31)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
+### `urlRe` <sup>↱<sup>[source code](./src/url.mjs#L37)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
 
-Matches a valid, generic URL. Provides capture groups 1 (schema), 2 (server/authority), 3 (path), 4 (query part), 5 (
-intra-page link/fragment.) Note, a URL always has scheme, and at a minimum a server/authority or path, and may have
+Matches a valid, generic URL. Provides capture groups:
+- Group 1: schema
+- Group 2: server/authority
+- Group 3: path
+- Group 4: query part
+- Group 5: intra-page link/fragment
+
+Note, a URL always has scheme, and at a minimum a server/authority or path, and may have
 both. The query and fragment components are always optional. For general usage, you might want to use the more
 specific Res for specific protocols or the `commonUrlRe`.
 

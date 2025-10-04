@@ -19,8 +19,13 @@ import { lockdownRe } from './lib/lockdown-re'
 // Made some corrections, rearranged capture groups.
 
 /**
- * An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups 1 (
- * year), 3 (month), and 4 (day of month), 5 (week of year), 6 (day of week date), and 7 (ordinal or Julian date).
+ * An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups:
+ * - Group 1: year
+ * - Group 3: month
+ * - Group 4: day of month
+ * - Group 5: week of year
+ * - Group 6: day of week date
+ * - Group 7: ordinal or Julian date
  * @category Date time
  */
 export const iso8601DayReString = '(?:([+-]?\\d{4})(?:(-?)(?:(0[1-9]|1[0-2])(?:\\2([12]\\d|0[1-9]|3[01])?)?|W([0-4]\\d|5[0-3])\\2([1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3(?:[0-5]\\d|6[1-6])))?)?)'
@@ -35,18 +40,36 @@ const tz = '([zZ]|(?:[+-](?!00(?::?00)?)(?:[01]\\d|2[0-3])(?::?[0-5]\\d)?))'
 export const iso8601TimeReString = `(?:(?:${eod}|${hr}(?:(?<timeSep>:?)${min}(?:\\k<timeSep>${sec})?)?)${tz}?)`
 
 /**
- * Matches the time designation portion of an ISO 8601 date+time. Provides matching groups 1 (special end of day time),
- * 3 (hours), 3 (fraction of hour), 5 (minutes), 6 (fraction of minute), 7 (seconds), and 8 (fraction of seconds).
+ * Matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
+ * - Group 1: special end of day time
+ * - Group 3: hours
+ * - Group 4: fraction of hour
+ * - Group 5: minutes
+ * - Group 6: fraction of minute
+ * - Group 7: seconds
+ * - Group 8: fraction of seconds
  * @category Date time
  */
 export const iso8601DateReString = `${iso8601DayReString}(?:T${iso8601TimeReString})?`
 
 /**
- * Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z. Provides matching
- * groups 1 (year), 3 (month), and 4 (day of month), 5 (week of year), 6 (day of week date), and 7 (ordinal or Julian
- * date), 8 (special end of day time), 10 (hour), 11 (decimal fraction of hour), 13 (minute), 14 (decimal fraction of
- * minute), 15 (seconds), 16 (decimal fraction of a second), and 17 (timezone designation). (Groups 2, 11, and 13 are
- * internal back references.)
+ * Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z. Provides matching groups:
+ * - Group 1: year
+ * - Group 3: month
+ * - Group 4: day of month
+ * - Group 5: week of year
+ * - Group 6: day of week date
+ * - Group 7: ordinal or Julian date
+ * - Group 8: special end of day time
+ * - Group 10: hour
+ * - Group 11: decimal fraction of hour
+ * - Group 13: minute
+ * - Group 14: decimal fraction of minute
+ * - Group 15: seconds
+ * - Group 16: decimal fraction of a second
+ * - Group 17: timezone designation
+ *
+ * (Groups 2, 11, and 13 are internal back references.)
  * @category Date time
  */
 export const iso8601DateRe = lockdownRe(iso8601DateReString)
@@ -61,22 +84,28 @@ export const iso8601DateTimeReString = `${iso8601DayReString}T${iso8601TimeReStr
 export const iso8601DateTimeRe = lockdownRe(iso8601DateTimeReString)
 
 /**
- * An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups 1
- * (day of week name), 2 (day of month), 3 (month name), 4 (year).
+ * An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
+ * - Group 1: day of week name
+ * - Group 2: day of month
+ * - Group 3: month name
+ * - Group 4: year
  * @category Date time
  */
 export const rfc2822DayReString = '(?:(?:(Sun|Mon|Tue|Wed|Thu|Fri|Sat),\\s+)?(0[1-9]|[1-2]?[0-9]|3[01])\\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+(\\d{2,4}))'
 
 /**
- * An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides
- * matching groups 1 (timezone).
+ * An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
+ * - Group 1: timezone
  * @category Date time
  */
 export const timezoneReString = '([+-][0-9]{2}[0-5][0-9]|(?:UT|GMT|[A-Z]{3,5}|[A-IK-Z]))'
 
 /**
- * An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups 1
- * (hour), 2 (minutes), 3 (seconds), and 4 (timezone).
+ * An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
+ * - Group 1: hour
+ * - Group 2: minutes
+ * - Group 3: seconds
+ * - Group 4: timezone
  * @category Date time
  */
 export const rfc2822TimeReString = `(?:(2[0-3]|[0-1][0-9]):([0-5][0-9])(?::(60|[0-5][0-9]))?(?:\\s+${timezoneReString})?)`
@@ -84,9 +113,15 @@ export const rfc2822TimeReString = `(?:(2[0-3]|[0-1][0-9]):([0-5][0-9])(?::(60|[
 export const rfc2822DateReString = `${rfc2822DayReString}\\s+${rfc2822TimeReString}`
 
 /**
- * Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992
- * 12:12 UTC'. Provides matching groups 1 (day of week), 2 (day of month), 3 (month name), and 4 (year), 5 (hour), 6
- * (min), 7 (second), and 8 (time zone).
+ * Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992 12:12 UTC'. Provides matching groups:
+ * - Group 1: day of week
+ * - Group 2: day of month
+ * - Group 3: month name
+ * - Group 4: year
+ * - Group 5: hour
+ * - Group 6: min
+ * - Group 7: second
+ * - Group 8: time zone
  * @category Date time
  */
 export const rfc2822DateRe = lockdownRe(rfc2822DateReString)
@@ -97,8 +132,11 @@ export const usDateReString = `(0?[1-9]|1[0-2])${seps}(0?[1-9]|[1-2][0-9]|3[0-1]
 
 /**
  * Matches a US style 'MM/DD/YYYY' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for month and
- * day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups 1 (month), 2 (day of
- * month), 3 (BCE/CE indicator), and 4 (year).
+ * day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
+ * - Group 1: month
+ * - Group 2: day of month
+ * - Group 3: BCE/CE indicator
+ * - Group 4: year
  * @category Date time
  */
 export const usDateRe = lockdownRe(usDateReString)
@@ -107,8 +145,11 @@ export const intlDateReString = `([+-])?(\\d{1,})${seps}(0?[1-9]|1[0-2])${seps}(
 
 /**
  * Matches an international style 'YYYY/MM/DD' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for
- * month and day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups 1 (BCE/CE
- * indicator), 2 (year), 3 (month), 4 (day).
+ * month and day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
+ * - Group 1: BCE/CE indicator
+ * - Group 2: year
+ * - Group 3: month
+ * - Group 4: day
  * @category Date time
  */
 export const intlDateRe = lockdownRe(intlDateReString)
@@ -116,7 +157,10 @@ export const intlDateRe = lockdownRe(intlDateReString)
 export const militaryTimeReString = '(?:(2400)|([0-1][0-9]|2[0-3])([0-5]\\d))'
 
 /**
- * Matches military time style 'HHMM' string. Provides capture groups 1 (special 2400 time), 2 (hour), and 3 (minutes).
+ * Matches military time style 'HHMM' string. Provides capture groups:
+ * - Group 1: special 2400 time
+ * - Group 2: hour
+ * - Group 3: minutes
  * @category Date time
  */
 export const militaryTimeRe = lockdownRe(militaryTimeReString)
@@ -124,9 +168,12 @@ export const militaryTimeRe = lockdownRe(militaryTimeReString)
 export const timeReString = '(?:(0?[1-9]|1[0-2]):([0-5][0-9])(?::([0-5][0-9])(?:[.,](\\d+))?)?\\s*([aApP][mM]))'
 
 /**
- * Matches a twelve hour time designation, requires AM or PM designation. Allows optional leading 0 in hour. Provides
- * matching groups 1 (hour), 2 (minutes), 3 (seconds, without decimal fractions), 4 (decimal fraction seconds), and 5 (
- * AM/PM indicator).
+ * Matches a twelve hour time designation, requires AM or PM designation. Allows optional leading 0 in hour. Provides matching groups:
+ * - Group 1: hour
+ * - Group 2: minutes
+ * - Group 3: seconds, without decimal fractions
+ * - Group 4: decimal fraction seconds
+ * - Group 5: AM/PM indicator
  * @category Date time
  */
 export const timeRe = lockdownRe(timeReString)
@@ -134,9 +181,12 @@ export const timeRe = lockdownRe(timeReString)
 export const twentyFourHourTimeReString = '(?:(24:00(?::00)?)|([01]?[0-9]|2[0-3]):([0-5][0-9])(?::([0-5][0-9])(?:[.,](\\d+))?)?)'
 
 /**
- * Matches a twenty-four hour time designationAllows optional leading 0 in hour. Provides matching groups 1 (special
- * 24:00 designation with optional seconds), 2 (hour), 3 (minutes), 4 (seconds, without decimal fractions), 5 (decimal
- * fraction seconds).
+ * Matches a twenty-four hour time designationAllows optional leading 0 in hour. Provides matching groups:
+ * - Group 1: special 24:00 designation with optional seconds
+ * - Group 2: hour
+ * - Group 3: minutes
+ * - Group 4: seconds, without decimal fractions
+ * - Group 5: decimal fraction seconds
  * @category Date time
  */
 export const twentyFourHourTimeRe = lockdownRe(twentyFourHourTimeReString)
