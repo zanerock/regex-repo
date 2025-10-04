@@ -104,6 +104,8 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
     - [`integerRe`](#integerRe): Matches an integer.
     - [`plainFloatRe`](#plainFloatRe): Matches a plain (non-scientific notation) float.
     - [`scientificFloatRe`](#scientificFloatRe): Matches a scientific notation float.
+  - <span id="global-constant-semver-index"></span>_semver_
+    - [`semver2Re`](#semver2Re): Matches a semantic version string according to the Semantic Versioning 2.0.0 specification.
   - <span id="global-constant-URL-index"></span>_URL_
     - [`commonUrlRe`](#commonUrlRe): Matches any of the "common" web URL types: 'mailto', 'http/https', 'ftp', and 'file'.
     - [`fileUrlRe`](#fileUrlRe): Matches a valid 'file' URL.
@@ -421,6 +423,17 @@ Matches a plain (non-scientific notation) float.
 ### `scientificFloatRe` <sup>↱<sup>[source code](./src/numbers.js#L42)</sup></sup> <sup>⇧<sup>[Numbers index](#global-constant-Numbers-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a scientific notation float.
+
+<a id="semver2Re"></a>
+### `semver2Re` <sup>↱<sup>[source code](./src/semver.mjs#L31)</sup></sup> <sup>⇧<sup>[semver index](#global-constant-semver-index) | [global index](#global-constant-index)</sup></sup>
+
+Matches a semantic version string according to the Semantic Versioning 2.0.0 specification.
+Provides matching groups:
+- Group 1: major version
+- Group 2: minor version
+- Group 3: patch version
+- Group 4: pre-release version (if present)
+- Group 5: build metadata (if present)
 
 <a id="commonUrlRe"></a>
 ### `commonUrlRe` <sup>↱<sup>[source code](./src/url.mjs#L86)</sup></sup> <sup>⇧<sup>[URL index](#global-constant-URL-index) | [global index](#global-constant-index)</sup></sup>
