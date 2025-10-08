@@ -148,3 +148,64 @@ export const goodUrls = [
   'telnet://16.123.123.123',
   ...goodCommonURLs,
 ]
+
+export const urlCaptureGroupInputs = [
+  'http://foo.com/path?query=1#fragment',
+  'ftp://example.com/file',
+  'mailto:test@example.com',
+  'telnet://192.168.1.1',
+]
+
+export const urlCaptureGroupMatches = [
+  ['http', 'foo.com', '/path', 'query=1', 'fragment'],
+  ['ftp', 'example.com', '/file', undefined, undefined],
+  ['mailto', 'test@example.com', undefined, undefined, undefined],
+  ['telnet', '192.168.1.1', undefined, undefined, undefined],
+]
+
+export const mailtoUrlCaptureGroupInputs = [
+  'mailto:foo@bar.com',
+  'mailto:test@example.org',
+]
+
+export const mailtoUrlCaptureGroupMatches = [
+  ['foo@bar.com'],
+  ['test@example.org'],
+]
+
+export const httpUrlCaptureGroupInputs = [
+  'http://foo.com/path?query=1#fragment',
+  'https://user:pass@example.com:8080/api?v=1#section',
+  'http://192.168.1.1/test',
+  'https://example.com',
+]
+
+// Capture groups: [1:protocol, 2:user, 3:password, 4:host, 5:port, 6:path, 7:query, 8:fragment]
+export const httpUrlCaptureGroupMatches = [
+  ['http', undefined, undefined, 'foo.com', undefined, '/path', 'query=1', 'fragment'],
+  ['https', 'user', 'pass', 'example.com', '8080', '/api', 'v=1', 'section'],
+  ['http', undefined, undefined, '192.168.1.1', undefined, '/test', undefined, undefined],
+  ['https', undefined, undefined, 'example.com', undefined, undefined, undefined, undefined],
+]
+
+export const ftpUrlCaptureGroupInputs = [
+  'ftp://foo.bar/baz',
+  'ftp://user:password@example.com:21/path/to/file',
+]
+
+// Capture groups: [1:user, 2:password, 3:host, 4:port, 5:path]
+export const ftpUrlCaptureGroupMatches = [
+  [undefined, undefined, 'foo.bar', undefined, '/baz'],
+  ['user', 'password', 'example.com', '21', '/path/to/file'],
+]
+
+export const fileUrlCaptureGroupInputs = [
+  'file://host.com/path/to/file',
+  'file:///absolute/path',
+]
+
+// Capture groups: [1:host, 2:path]
+export const fileUrlCaptureGroupMatches = [
+  ['host.com', '/path/to/file'],
+  [undefined, '/absolute/path'],
+]

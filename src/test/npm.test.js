@@ -14,11 +14,15 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { groupTest, groupTestPartial } from './lib/test-lib'
+import { groupTest, groupTestPartial, testCaptureGroups } from './lib/test-lib'
 import * as regex from '../npm'
+import {
+  validNPMPackageNames,
+  invalidNPMPackageNames,
+  npmPackageNameCaptureGroupInputs,
+  npmPackageNameCaptureGroupMatches
+} from './data/npm'
 
-const validNPMPackegeNames = ['ansi-escapes', 'foo.com', '@acme/foo']
-const invalidNPMPackageNames = ['excited!', '.start-with-a-peried', '@acme/!foo']
-
-groupTest(regex.npmPackageNameRe, validNPMPackegeNames, invalidNPMPackageNames, 'NPM package names')
-groupTestPartial(regex.npmPackageNameReString, validNPMPackegeNames, invalidNPMPackageNames, 'NPM package names')
+groupTest(regex.npmPackageNameRe, validNPMPackageNames, invalidNPMPackageNames, 'NPM package names')
+groupTestPartial(regex.npmPackageNameReString, validNPMPackageNames, invalidNPMPackageNames, 'NPM package names')
+testCaptureGroups(regex.npmPackageNameRe, npmPackageNameCaptureGroupInputs, npmPackageNameCaptureGroupMatches, 'NPM package name capture groups')

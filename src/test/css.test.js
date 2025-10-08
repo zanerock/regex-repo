@@ -26,7 +26,7 @@ groupTestPartial(regex.hexColorNoAlphaReString, validHexColors1, invalidHexColor
 groupTest(regex.hexColorAlphaRe, validHexColors, invalidHexColors, 'hexColor')
 groupTestPartial(regex.hexColorAlphaReString, validHexColors, invalidHexColors, 'hexColor')
 
-// since the colors are hard coded, we don't test the while thing; we'd just
+// since the colors are hard coded, we don't test the whole thing; we'd just
 // end up replicating the structure or building pointless tests from the same
 // structure, we just want to check that the regex gets built.
 test('cssPreColors1 matches valid \'red\'', () => {
