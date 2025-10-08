@@ -27,7 +27,7 @@ import {
   mailtoUrlCaptureGroupInputs, mailtoUrlCaptureGroupMatches,
   httpUrlCaptureGroupInputs, httpUrlCaptureGroupMatches,
   ftpUrlCaptureGroupInputs, ftpUrlCaptureGroupMatches,
-  fileUrlCaptureGroupInputs, fileUrlCaptureGroupMatches,
+  fileUrlCaptureGroupInputs, fileUrlCaptureGroupMatches
 } from './data/urls'
 
 groupTest(regex.urlRe, goodUrls, badURLs, 'URL')

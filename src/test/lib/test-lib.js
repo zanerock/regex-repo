@@ -44,7 +44,6 @@ export const groupTestPartial = (reString, validData, invalidData, desc, prefix 
  *
  * The numbered mode is useful for regexes with internal non-capturing groups, backreferences,
  * or alternations that create sparse or non-sequential capture group numbering.
- *
  * @param {RegExp} re - The regular expression to test
  * @param {string[]} inputs - Array of input strings to test against the regex
  * @param {Array<Array<string|undefined>>} expectedMatches - Array of expected capture group values for each input.
@@ -52,7 +51,6 @@ export const groupTestPartial = (reString, validData, invalidData, desc, prefix 
  * @param {number[]} [groupNumbers] - Optional array of capture group numbers to test.
  *        If omitted, tests groups 1, 2, 3, ... sequentially.
  * @param {string} desc - Description of the test (shown in test output)
- *
  * @example
  * // Sequential mode (tests groups 1, 2, 3)
  * testCaptureGroups(
@@ -61,7 +59,6 @@ export const groupTestPartial = (reString, validData, invalidData, desc, prefix 
  *   [['2024', '01', '15']],
  *   'date capture groups'
  * )
- *
  * @example
  * // Numbered mode (tests specific group numbers: 1, 3, 5)
  * testCaptureGroups(
