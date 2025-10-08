@@ -52,7 +52,7 @@ describe('Package exports verification', () => {
       const missingExports = exports.filter((exportName) => allExports[exportName] === undefined)
 
       if (missingExports.length > 0) {
-        fail(`Missing exports from ${moduleName}: ${missingExports.join(', ')}`)
+        throw new Error(`Missing exports from ${moduleName}: ${missingExports.join(', ')}`)
       }
 
       expect(missingExports).toHaveLength(0)
