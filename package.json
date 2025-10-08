@@ -28,7 +28,7 @@
     "node": "14.x || 16.x || >=18.0.0"
   },
   "repository": {
-    "url": "git+ssh://git@github.com:liquid-labs/regex-repo.git",
+    "url": "git+ssh://git@github.com/liquid-labs/regex-repo.git",
     "type": "git"
   },
   "license": "Apache-2.0",
