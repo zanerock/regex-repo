@@ -189,8 +189,6 @@ export const httpUrlCaptureGroupMatches = [
   ['https', undefined, undefined, 'example.com', undefined, undefined, undefined, undefined],
 ]
 
-export const httpUrlCaptureGroupNumbers = [1, 2, 3, 4, 35, 36, 37, 38]
-
 export const ftpUrlCaptureGroupInputs = [
   'ftp://foo.bar/baz',
   'ftp://user:password@example.com:21/path/to/file',
@@ -203,8 +201,6 @@ export const ftpUrlCaptureGroupMatches = [
   ['user', 'password', 'example.com', '21', '/path/to/file'],
 ]
 
-export const ftpUrlCaptureGroupNumbers = [1, 2, 3, 34, 35]
-
 export const fileUrlCaptureGroupInputs = [
   'file://host.com/path/to/file',
   'file:///absolute/path',
@@ -215,5 +211,3 @@ export const fileUrlCaptureGroupMatches = [
   ['host.com', '/path/to/file'],
   [undefined, '/absolute/path'],
 ]
-
-export const fileUrlCaptureGroupNumbers = [1, 32]
