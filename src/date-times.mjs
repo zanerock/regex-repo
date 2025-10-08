@@ -56,10 +56,13 @@ export const iso8601TimeReString = `(?:(?:${eod}|${hr}(?:(?<timeSep>:?)${min}(?:
  * - Group 1: special end of day time
  * - Group 3: hours
  * - Group 4: fraction of hour
- * - Group 5: minutes
- * - Group 6: fraction of minute
- * - Group 7: seconds
- * - Group 8: fraction of seconds
+ * - Group 6: minutes
+ * - Group 7: fraction of minute
+ * - Group 8: seconds
+ * - Group 9: fraction of seconds
+ * - Group 10: timezone
+ *
+ * (Groups 2 and 5 are internal backreferences for separator consistency)
  * @category Date time
  */
 export const iso8601TimeRe = lockdownRe(iso8601TimeReString)

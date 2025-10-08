@@ -180,8 +180,7 @@ export const httpUrlCaptureGroupInputs = [
   'https://example.com',
 ]
 
-// Note: Groups 2 and 4 capture username/password together due to greedy matching
-// Group numbers: [1:protocol, 2:user, 4:host, 35:port, 36:path, 37:query, 38:fragment]
+// Capture groups: [1:protocol, 2:user, 3:password, 4:host, 5:port, 6:path, 7:query, 8:fragment]
 export const httpUrlCaptureGroupMatches = [
   ['http', undefined, undefined, 'foo.com', undefined, '/path', 'query=1', 'fragment'],
   ['https', 'user', 'pass', 'example.com', '8080', '/api', 'v=1', 'section'],
@@ -194,8 +193,7 @@ export const ftpUrlCaptureGroupInputs = [
   'ftp://user:password@example.com:21/path/to/file',
 ]
 
-// Note: Group 1 captures username:password together due to greedy matching
-// Group numbers: [1:user, 3:host, 34:port, 35:path]
+// Capture groups: [1:user, 2:password, 3:host, 4:port, 5:path]
 export const ftpUrlCaptureGroupMatches = [
   [undefined, undefined, 'foo.bar', undefined, '/baz'],
   ['user', 'password', 'example.com', '21', '/path/to/file'],
@@ -206,7 +204,7 @@ export const fileUrlCaptureGroupInputs = [
   'file:///absolute/path',
 ]
 
-// Group numbers: [1:host, 32:path]
+// Capture groups: [1:host, 2:path]
 export const fileUrlCaptureGroupMatches = [
   ['host.com', '/path/to/file'],
   [undefined, '/absolute/path'],

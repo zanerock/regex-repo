@@ -94,8 +94,7 @@ export const fileUrlReString = `(?:file:\\/\\/${hostOrIPReString}?${urlPathReStr
 /**
  * Matches a valid 'file' URL. Provides capture groups:
  * - Group 1: host
- * - Group 2: port
- * - Group 3: path
+ * - Group 2: path
  *
  * You must use the either the 'u' or 'v' flag when using the Re string.
  * @category URL
