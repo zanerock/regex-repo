@@ -28,7 +28,7 @@ import { lockdownRe } from './lib/lockdown-re'
  * - Group 7: ordinal or Julian date
  * @category Date time
  */
-export const iso8601DayReString = '(?:([+-]?\\d{4})(?:(-?)(?:(0[1-9]|1[0-2])(?:\\2([12]\\d|0[1-9]|3[01])?)?|W([0-4]\\d|5[0-3])\\2([1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3(?:[0-5]\\d|6[1-6])))?)?)'
+export const iso8601DayReString = '(?:([+-]?\\d{4})(?:(-?)(?:(0[1-9]|1[0-2])(?:\\2([12]\\d|0[1-9]|3[01])?)?|W([0-4]\\d|5[0-3])(?:\\2([1-7]))?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3(?:[0-5]\\d|6[1-6])))?)?)'
 
 /**
  * An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups:
