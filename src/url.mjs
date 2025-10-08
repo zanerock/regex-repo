@@ -47,7 +47,7 @@ export const mailtoUrlReString = `(?:mailto:(${emailReString}))`
  */
 export const mailtoUrlRe = lockdownRe(mailtoUrlReString, 'u')
 
-const userPlusPassReString = '(?:(\\S+)(?::(\\S*))?@)'
+const userPlusPassReString = '(?:([^\\s:]+)(?::(\\S*))?@)'
 const hostOrIPReString = `(${ipHostReString}|${fqDomainNameReString}|\\[(?:${ipV6ReString}|${ipVFutureReString})\\]|localhost)`
 const portReString = '(?::(\\d{2,5}))'
 // though URLs in general allow spaces in the path component, they are disallowed in the HTTP(S) protocols
