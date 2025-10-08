@@ -30,6 +30,18 @@ import { lockdownRe } from './lib/lockdown-re'
  */
 export const iso8601DayReString = '(?:([+-]?\\d{4})(?:(-?)(?:(0[1-9]|1[0-2])(?:\\2([12]\\d|0[1-9]|3[01])?)?|W([0-4]\\d|5[0-3])\\2([1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3(?:[0-5]\\d|6[1-6])))?)?)'
 
+/**
+ * An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups:
+ * - Group 1: year
+ * - Group 3: month
+ * - Group 4: day of month
+ * - Group 5: week of year
+ * - Group 6: day of week date
+ * - Group 7: ordinal or Julian date
+ * @category Date time
+ */
+export const iso8601DayRe = lockdownRe(iso8601DayReString)
+
 const eod = '(24(?<endSep>:?)00\\k<endSep>00)'
 const frac = '(?:[.,](\\d+))'
 const hr = `(?:([01]\\d|2[0-3])${frac}?)`
@@ -40,7 +52,7 @@ const tz = '([zZ]|(?:[+-](?!00(?::?00)?)(?:[01]\\d|2[0-3])(?::?[0-5]\\d)?))'
 export const iso8601TimeReString = `(?:(?:${eod}|${hr}(?:(?<timeSep>:?)${min}(?:\\k<timeSep>${sec})?)?)${tz}?)`
 
 /**
- * Matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
+ * An RE ready string that matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
  * - Group 1: special end of day time
  * - Group 3: hours
  * - Group 4: fraction of hour
@@ -48,6 +60,26 @@ export const iso8601TimeReString = `(?:(?:${eod}|${hr}(?:(?<timeSep>:?)${min}(?:
  * - Group 6: fraction of minute
  * - Group 7: seconds
  * - Group 8: fraction of seconds
+ * @category Date time
+ */
+export const iso8601TimeRe = lockdownRe(iso8601TimeReString)
+
+/**
+ * Matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
+ * - Group 1: year
+ * - Group 3: month
+ * - Group 4: day of month
+ * - Group 5: week of year
+ * - Group 6: day of week date
+ * - Group 7: ordinal or Julian date
+ * - Group 8: special end of day time
+ * - Group 10: hour
+ * - Group 11: decimal fraction of hour
+ * - Group 13: minute
+ * - Group 14: decimal fraction of minute
+ * - Group 15: seconds
+ * - Group 16: decimal fraction of a second
+ * - Group 17: timezone designation
  * @category Date time
  */
 export const iso8601DateReString = `${iso8601DayReString}(?:T${iso8601TimeReString})?`
@@ -83,32 +115,38 @@ export const iso8601DateTimeReString = `${iso8601DayReString}T${iso8601TimeReStr
  */
 export const iso8601DateTimeRe = lockdownRe(iso8601DateTimeReString)
 
+export const rfc2822DayReString = '(?:(?:(Sun|Mon|Tue|Wed|Thu|Fri|Sat),\\s+)?(0[1-9]|[1-2]?[0-9]|3[01])\\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+(\\d{2,4}))'
+
 /**
- * An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
+ * Matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
  * - Group 1: day of week name
  * - Group 2: day of month
  * - Group 3: month name
  * - Group 4: year
  * @category Date time
  */
-export const rfc2822DayReString = '(?:(?:(Sun|Mon|Tue|Wed|Thu|Fri|Sat),\\s+)?(0[1-9]|[1-2]?[0-9]|3[01])\\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\s+(\\d{2,4}))'
+export const rfc2822DayRe = lockdownRe(rfc2822DayReString)
 
-/**
- * An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
- * - Group 1: timezone
- * @category Date time
- */
 export const timezoneReString = '([+-][0-9]{2}[0-5][0-9]|(?:UT|GMT|[A-Z]{3,5}|[A-IK-Z]))'
 
 /**
- * An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
+ * Matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
+ * - Group 1: timezone
+ * @category Date time
+ */
+export const timezoneRe = lockdownRe(timezoneReString)
+
+export const rfc2822TimeReString = `(?:(2[0-3]|[0-1][0-9]):([0-5][0-9])(?::(60|[0-5][0-9]))?(?:\\s+${timezoneReString})?)`
+
+/**
+ * Matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
  * - Group 1: hour
  * - Group 2: minutes
  * - Group 3: seconds
  * - Group 4: timezone
  * @category Date time
  */
-export const rfc2822TimeReString = `(?:(2[0-3]|[0-1][0-9]):([0-5][0-9])(?::(60|[0-5][0-9]))?(?:\\s+${timezoneReString})?)`
+export const rfc2822TimeRe = lockdownRe(rfc2822TimeReString)
 
 export const rfc2822DateReString = `${rfc2822DayReString}\\s+${rfc2822TimeReString}`
 
