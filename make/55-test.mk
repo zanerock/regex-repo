@@ -13,10 +13,11 @@ PRECIOUS_TARGETS+=$(SDLC_TEST_REPORT)
 
 SDLC_TEST_FILES_BUILT:=$(patsubst %.cjs, %.js, $(patsubst %.mjs, %.js, $(patsubst $(SRC)/%, $(TEST_STAGING)/%, $(SDLC_ALL_JS_FILES_SRC))))
 
-$(SDLC_TEST_DATA_BUILT): $(TEST_STAGING)/%: $(SRC)/%
-	@echo "Copying test data..."
-	@mkdir -p $(dir $@)
-	@cp $< $@
+# We actually build the test data, which is captured in JS files
+#$(SDLC_TEST_DATA_BUILT): $(TEST_STAGING)/%: $(SRC)/%
+#	@echo "Copying test data..."
+#	@mkdir -p $(dir $@)
+#	@cp $< $@
 
 # Jest is not picking up the external maps, so we inline them for the test. (As of?)
 $(SDLC_TEST_FILES_BUILT) &: $(SDLC_ALL_JS_FILES_SRC)
