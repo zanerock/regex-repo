@@ -14,15 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { groupTest, groupTestPartial, testCaptureGroups } from './lib/test-lib'
-import * as regex from '../semver'
-import {
-  validSemver2,
-  invalidSemver2,
-  semver2CaptureGroupInputs,
-  semver2CaptureGroupMatches
-} from './data/semver'
+export const validNPMPackageNames = ['ansi-escapes', 'foo.com', '@acme/foo']
 
-groupTest(regex.semver2Re, validSemver2, invalidSemver2, 'semver2')
-groupTestPartial(regex.semver2ReString, validSemver2, invalidSemver2, 'semver2')
-testCaptureGroups(regex.semver2Re, semver2CaptureGroupInputs, semver2CaptureGroupMatches, 'semver2 capture groups')
+export const invalidNPMPackageNames = ['excited!', '.start-with-a-peried', '@acme/!foo']
+
+export const npmPackageNameCaptureGroupInputs = [
+  'ansi-escapes',
+  '@acme/foo',
+  'foo.com',
+]
+
+export const npmPackageNameCaptureGroupMatches = [
+  [undefined, 'ansi-escapes'],
+  ['@acme/', 'foo'],
+  [undefined, 'foo.com'],
+]

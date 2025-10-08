@@ -43,3 +43,17 @@ export const goodEmailsRFC5322 = [
 export const badEmailsRFC5322 = [
   ...badEmails,
 ]
+
+export const emailCaptureGroupInputs = [
+  'foo@bar.com',
+  'foo-_18+Z.t%c@Bart-teg38w.co',
+  'foo@subb-sub.sub.com',
+  '"quote@username"@foo.com',
+]
+
+export const emailCaptureGroupMatches = [
+  ['foo', 'bar.com'],
+  ['foo-_18+Z.t%c', 'Bart-teg38w.co'],
+  ['foo', 'subb-sub.sub.com'],
+  ['"quote@username"', 'foo.com'],
+]

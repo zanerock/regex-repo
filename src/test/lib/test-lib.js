@@ -34,3 +34,40 @@ export const groupTestPartial = (reString, validData, invalidData, desc, prefix 
   groupTestHelper(re, validData.map((d) => prefix + d + suffix), true, desc + ' partial match')
   groupTestHelper(re, invalidData.map((d) => prefix + d + suffix), false, desc + ' partial match')
 }
+
+export const testCaptureGroups = (re, inputs, expectedMatches, desc) => {
+  desc += ` (${re.toString()})`
+  inputs.forEach((input, index) => {
+    const expected = expectedMatches[index]
+    test(`${desc} should extract capture groups from '${input}'`, () => {
+      const match = re.exec(input)
+      expect(match).not.toBeNull()
+      if (match) {
+        // Test each capture group (starting from index 1, as 0 is the full match)
+        expected.forEach((expectedValue, groupIndex) => {
+          const actualValue = match[groupIndex + 1]
+          expect(actualValue).toBe(expectedValue)
+        })
+      }
+    })
+  })
+}
+
+export const testCaptureGroupsByNumber = (re, inputs, expectedMatches, groupNumbers, desc) => {
+  desc += ` (${re.toString()})`
+  inputs.forEach((input, index) => {
+    const expected = expectedMatches[index]
+    test(`${desc} should extract capture groups from '${input}'`, () => {
+      const match = re.exec(input)
+      expect(match).not.toBeNull()
+      if (match) {
+        // Test specific capture groups by their group numbers
+        expected.forEach((expectedValue, arrayIndex) => {
+          const groupNumber = groupNumbers[arrayIndex]
+          const actualValue = match[groupNumber]
+          expect(actualValue).toBe(expectedValue)
+        })
+      }
+    })
+  })
+}

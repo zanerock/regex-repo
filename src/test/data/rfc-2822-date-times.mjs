@@ -63,3 +63,73 @@ export const invalidRFC2822Dates = [
   '06 Jan 1922T12:12',
   '06 Jan 1992 25:12',
 ]
+
+// Capture group test data for rfc2822DayRe
+// Group numbers: [1:dayOfWeek, 2:dayOfMonth, 3:month, 4:year]
+export const rfc2822DayCaptureGroupInputs = [
+  'Mon, 1 Jan 2024',
+  '15 Feb 2024',
+  'Sat, 31 Dec 2023',
+]
+
+export const rfc2822DayCaptureGroupMatches = [
+  ['Mon', '1', 'Jan', '2024'],
+  [undefined, '15', 'Feb', '2024'],
+  ['Sat', '31', 'Dec', '2023'],
+]
+
+export const rfc2822DayCaptureGroupNumbers = [1, 2, 3, 4]
+
+// Capture group test data for timezoneRe
+// Group numbers: [1:timezone]
+export const timezoneCaptureGroupInputs = [
+  '+1000',
+  '-0500',
+  'UT',
+  'GMT',
+  'EST',
+]
+
+export const timezoneCaptureGroupMatches = [
+  ['+1000'],
+  ['-0500'],
+  ['UT'],
+  ['GMT'],
+  ['EST'],
+]
+
+export const timezoneCaptureGroupNumbers = [1]
+
+// Capture group test data for rfc2822TimeRe
+// Group numbers: [1:hour, 2:minutes, 3:seconds, 4:timezone]
+export const rfc2822TimeCaptureGroupInputs = [
+  '12:30 +1000',
+  '08:15:45 UT',
+  '23:59:59 -0500',
+  '00:00',
+]
+
+export const rfc2822TimeCaptureGroupMatches = [
+  ['12', '30', undefined, '+1000'],
+  ['08', '15', '45', 'UT'],
+  ['23', '59', '59', '-0500'],
+  ['00', '00', undefined, undefined],
+]
+
+export const rfc2822TimeCaptureGroupNumbers = [1, 2, 3, 4]
+
+// Capture group test data for rfc2822DateRe
+// Group numbers: [1:dayOfWeek, 2:dayOfMonth, 3:month, 4:year, 5:hour, 6:min, 7:second, 8:timezone]
+export const rfc2822DateCaptureGroupInputs = [
+  'Mon, 1 Jan 2024 12:30:40 +1000',
+  '1 Jan 2024 12:30:40 +1000',
+  'Sat, 31 Dec 2023 23:59:59 -0500',
+]
+
+export const rfc2822DateCaptureGroupMatches = [
+  ['Mon', '1', 'Jan', '2024', '12', '30', '40', '+1000'],
+  [undefined, '1', 'Jan', '2024', '12', '30', '40', '+1000'],
+  ['Sat', '31', 'Dec', '2023', '23', '59', '59', '-0500'],
+]
+
+export const rfc2822DateCaptureGroupNumbers = [1, 2, 3, 4, 5, 6, 7, 8]

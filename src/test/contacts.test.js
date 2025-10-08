@@ -14,9 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { groupTest, groupTestPartial } from './lib/test-lib'
+import { groupTest, groupTestPartial, testCaptureGroups } from './lib/test-lib'
 import * as regex from '../contacts'
-import { goodEmails, badEmails } from './data/emails'
+import { goodEmails, badEmails, emailCaptureGroupInputs, emailCaptureGroupMatches } from './data/emails'
 import { goodUsPhones, badUsPhones } from './data/usPhones'
 import { goodZipCodes, badZipCodes } from './data/zipCodes'
 
@@ -28,3 +28,4 @@ groupTestPartial(regex.zipCodeReString, goodZipCodes, badZipCodes, 'US zip codes
 
 groupTest(regex.emailRe, goodEmails, badEmails, 'emails')
 groupTestPartial(regex.emailReString, goodEmails, badEmails, 'emails', undefined, undefined, 'u')
+testCaptureGroups(regex.emailRe, emailCaptureGroupInputs, emailCaptureGroupMatches, 'email capture groups')

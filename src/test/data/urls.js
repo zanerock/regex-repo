@@ -148,3 +148,72 @@ export const goodUrls = [
   'telnet://16.123.123.123',
   ...goodCommonURLs,
 ]
+
+export const urlCaptureGroupInputs = [
+  'http://foo.com/path?query=1#fragment',
+  'ftp://example.com/file',
+  'mailto:test@example.com',
+  'telnet://192.168.1.1',
+]
+
+export const urlCaptureGroupMatches = [
+  ['http', 'foo.com', '/path', 'query=1', 'fragment'],
+  ['ftp', 'example.com', '/file', undefined, undefined],
+  ['mailto', 'test@example.com', undefined, undefined, undefined],
+  ['telnet', '192.168.1.1', undefined, undefined, undefined],
+]
+
+export const mailtoUrlCaptureGroupInputs = [
+  'mailto:foo@bar.com',
+  'mailto:test@example.org',
+]
+
+export const mailtoUrlCaptureGroupMatches = [
+  ['foo@bar.com'],
+  ['test@example.org'],
+]
+
+export const httpUrlCaptureGroupInputs = [
+  'http://foo.com/path?query=1#fragment',
+  'https://user:pass@example.com:8080/api?v=1#section',
+  'http://192.168.1.1/test',
+  'https://example.com',
+]
+
+// Note: Groups 2 and 4 capture username/password together due to greedy matching
+// Group numbers: [1:protocol, 2:user, 4:host, 35:port, 36:path, 37:query, 38:fragment]
+export const httpUrlCaptureGroupMatches = [
+  ['http', undefined, 'foo.com', undefined, '/path', 'query=1', 'fragment'],
+  ['https', 'user:pass', 'example.com', '8080', '/api', 'v=1', 'section'],
+  ['http', undefined, '192.168.1.1', undefined, '/test', undefined, undefined],
+  ['https', undefined, 'example.com', undefined, undefined, undefined, undefined],
+]
+
+export const httpUrlCaptureGroupNumbers = [1, 2, 4, 35, 36, 37, 38]
+
+export const ftpUrlCaptureGroupInputs = [
+  'ftp://foo.bar/baz',
+  'ftp://user:password@example.com:21/path/to/file',
+]
+
+// Note: Group 1 captures username:password together due to greedy matching
+// Group numbers: [1:user, 3:host, 34:port, 35:path]
+export const ftpUrlCaptureGroupMatches = [
+  [undefined, 'foo.bar', undefined, '/baz'],
+  ['user:password', 'example.com', '21', '/path/to/file'],
+]
+
+export const ftpUrlCaptureGroupNumbers = [1, 3, 34, 35]
+
+export const fileUrlCaptureGroupInputs = [
+  'file://host.com/path/to/file',
+  'file:///absolute/path',
+]
+
+// Group numbers: [1:host, 32:path]
+export const fileUrlCaptureGroupMatches = [
+  ['host.com', '/path/to/file'],
+  [undefined, '/absolute/path'],
+]
+
+export const fileUrlCaptureGroupNumbers = [1, 32]

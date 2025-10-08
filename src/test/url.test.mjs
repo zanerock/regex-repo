@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { groupTest, groupTestPartial } from './lib/test-lib'
+import { groupTest, groupTestPartial, testCaptureGroups, testCaptureGroupsByNumber } from './lib/test-lib'
 import * as regex from '../url'
 import {
   goodCommonURLs, badCommonURLs,
@@ -22,27 +22,37 @@ import {
   goodFTPUrls, badFTPUrls,
   goodHTTPUrls, badHTTPUrls,
   goodMailtoUrls, badMailtoUrls,
-  goodUrls, badURLs
+  goodUrls, badURLs,
+  urlCaptureGroupInputs, urlCaptureGroupMatches,
+  mailtoUrlCaptureGroupInputs, mailtoUrlCaptureGroupMatches,
+  httpUrlCaptureGroupInputs, httpUrlCaptureGroupMatches, httpUrlCaptureGroupNumbers,
+  ftpUrlCaptureGroupInputs, ftpUrlCaptureGroupMatches, ftpUrlCaptureGroupNumbers,
+  fileUrlCaptureGroupInputs, fileUrlCaptureGroupMatches, fileUrlCaptureGroupNumbers
 } from './data/urls'
 
 groupTest(regex.urlRe, goodUrls, badURLs, 'URL')
 // remove URLs with spaces because those will correctly match on a partial match
 groupTestPartial(regex.urlReString, goodUrls, badURLs.filter((v) => !v.includes(' ')), 'URL', undefined, undefined, 'u')
+testCaptureGroups(regex.urlRe, urlCaptureGroupInputs, urlCaptureGroupMatches, 'URL capture groups')
 
 groupTest(regex.mailtoUrlRe, goodMailtoUrls, badMailtoUrls, 'mailto URLs')
 groupTestPartial(regex.mailtoUrlReString, goodMailtoUrls, badMailtoUrls, 'mailto URLs', undefined, undefined, 'u')
+testCaptureGroups(regex.mailtoUrlRe, mailtoUrlCaptureGroupInputs, mailtoUrlCaptureGroupMatches, 'mailto URL capture groups')
 
 groupTest(regex.httpUrlRe, goodHTTPUrls, badHTTPUrls, 'HTTP URLs')
 // remove URLs with spaces because those will correctly match on a partial match
 groupTestPartial(regex.httpUrlReString, goodHTTPUrls, badHTTPUrls.filter((v) => !v.includes(' ')), 'HTTP URLs', undefined, undefined, 'u')
+testCaptureGroupsByNumber(regex.httpUrlRe, httpUrlCaptureGroupInputs, httpUrlCaptureGroupMatches, httpUrlCaptureGroupNumbers, 'HTTP URL capture groups')
 
 groupTest(regex.ftpUrlRe, goodFTPUrls, badFTPUrls, 'FTP URLs')
 // remove URLs with spaces because those will correctly match on a partial match
 groupTestPartial(regex.ftpUrlReString, goodFTPUrls, badFTPUrls.filter((v) => !v.includes(' ')), 'FTP URLs', undefined, undefined, 'u')
+testCaptureGroupsByNumber(regex.ftpUrlRe, ftpUrlCaptureGroupInputs, ftpUrlCaptureGroupMatches, ftpUrlCaptureGroupNumbers, 'FTP URL capture groups')
 
 groupTest(regex.fileUrlRe, goodFileUrls, badFileUrls, 'File URLs')
 // remove URLs with spaces because those will correctly match on a partial match
 groupTestPartial(regex.fileUrlReString, goodFileUrls, badFileUrls.filter((v) => !v.includes(' ')), 'File URLs', undefined, undefined, 'u')
+testCaptureGroupsByNumber(regex.fileUrlRe, fileUrlCaptureGroupInputs, fileUrlCaptureGroupMatches, fileUrlCaptureGroupNumbers, 'File URL capture groups')
 
 groupTest(regex.commonUrlRe, goodCommonURLs, badCommonURLs, 'File URLs')
 // remove URLs with spaces because those will correctly match on a partial match

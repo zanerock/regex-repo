@@ -14,31 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import { groupTest, groupTestPartial } from './lib/test-lib'
+import { groupTest, groupTestPartial, testCaptureGroups } from './lib/test-lib'
 import * as regex from '../ids'
-
-const validUuid = [
-  '00000000-0000-1000-8000-000000000000',
-  '00000000-0000-1000-8000-000000abcdef',
-  '00000000-0000-1000-8000-000000ABCDEF',
-]
-const invalidUuid = [
-  '00000000-0000-0000-0000-000000000000',
-  '00000000-0000-0000-0000-00000000000G',
-  '00000000-0000-0000-0000-00000000000g',
-]
+import {
+  validUuid,
+  invalidUuid,
+  validSsn,
+  invalidSsn,
+  ssnCaptureGroupInputs,
+  ssnCaptureGroupMatches,
+  validEin,
+  invalidEin
+} from './data/ids'
 
 groupTest(regex.uuidRe, validUuid, invalidUuid, 'uuidRe')
 groupTestPartial(regex.uuidReString, validUuid, invalidUuid, 'uuidRe')
 
-const validSsn = ['100-00-0001', '123-45-6789', '123-45-0001', '123456789']
-const invalidSsn = ['000-45-6789', '666-45-6789', '900-45-6789', '123-45-0000', '123-45-678']
-
 groupTest(regex.ssnRe, validSsn, invalidSsn, 'SSN')
 groupTestPartial(regex.ssnReString, validSsn, invalidSsn, 'SSN')
-
-const validEin = ['01-3456789', '59-3456789', '123456789']
-const invalidEin = ['07-3456789', '49-3456789', '12-345678']
+testCaptureGroups(regex.ssnRe, ssnCaptureGroupInputs, ssnCaptureGroupMatches, 'SSN capture groups')
 
 groupTest(regex.einRe, validEin, invalidEin, 'EIN')
 groupTestPartial(regex.einReString, validEin, invalidEin, 'EIN')

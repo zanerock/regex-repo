@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 // Pulled some test data from https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/ (2024-07-15)
-const valid8601DatesOnly = [
+export const valid8601DatesOnly = [
   '2009', // year only
   '-0010',
   '+0010',
@@ -31,7 +31,7 @@ const valid8601DatesOnly = [
   '2009W011',
 ]
 
-const invalid8601DatesOnly = [
+export const invalid8601DatesOnly = [
   '2009-0101', // inconsistent separators
   '200901-01',
   '2009-W0101',
@@ -120,3 +120,69 @@ export const invalid8601DateTimes = [
 export const valid8601Dates = [...valid8601DatesOnly, ...valid8601DateTimes]
 
 export const invalid8601Dates = [...invalid8601DatesOnly, ...invalid8601DateAndTimes]
+
+// Capture group test data for iso8601DayRe
+// Group numbers: [1:year, 3:month, 4:day, 5:week, 6:dayOfWeek, 7:ordinal]
+export const iso8601DayCaptureGroupInputs = [
+  '2024-01-15',
+  '2024-01',
+  '2024',
+  '2024-W05-5',
+  '2024W055',
+  '2024W-05',
+  '2024W05',
+  '2024-027',
+]
+
+export const iso8601DayCaptureGroupMatches = [
+  ['2024', '01', '15', undefined, undefined, undefined],
+  ['2024', '01', undefined, undefined, undefined, undefined],
+  ['2024', undefined, undefined, undefined, undefined, undefined],
+  ['2024', undefined, undefined, '05', '5', undefined],
+  ['2024', undefined, undefined, '05', undefined, undefined],
+  ['2024', undefined, undefined, undefined, undefined, '027'],
+]
+
+export const iso8601DayCaptureGroupNumbers = [1, 3, 4, 5, 6, 7]
+
+// Capture group test data for iso8601TimeRe
+// Group numbers: [1:endOfDay, 3:hour, 4:hourFrac, 6:minutes, 7:minFrac, 8:seconds, 9:secFrac, 10:timezone]
+export const iso8601TimeCaptureGroupInputs = [
+  '12:30:40.50+1000',
+  '24:00:00',
+  '12.168',
+  '12:30.168',
+  '12:30:40Z',
+]
+
+export const iso8601TimeCaptureGroupMatches = [
+  [undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
+  ['24:00:00', undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+  [undefined, '12', '168', undefined, undefined, undefined, undefined, undefined],
+  [undefined, '12', undefined, '30', '168', undefined, undefined, undefined],
+  [undefined, '12', undefined, '30', undefined, '40', undefined, 'Z'],
+]
+
+export const iso8601TimeCaptureGroupNumbers = [1, 3, 4, 6, 7, 8, 9, 10]
+
+// Capture group test data for iso8601DateRe
+// Group numbers: [1:year, 3:month, 4:day, 5:week, 6:dayOfWeek, 7:ordinal, 8:endOfDay, 10:hour, 11:hourFrac, 13:minutes, 14:minFrac, 15:seconds, 16:secFrac, 17:timezone]
+export const iso8601DateCaptureGroupInputs = [
+  '2024-01-15T12:30:40.50+1000',
+  '2024-W05-5T12:30:40.50+1000',
+  '2024-027T12:30:40.50+1000',
+  '2024-027T24:00:00+1000',
+  '2024-027T12.168+1000',
+  '2024-027T12:30.168+1000',
+]
+
+export const iso8601DateCaptureGroupMatches = [
+  ['2024', '01', '15', undefined, undefined, undefined, undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
+  ['2024', undefined, undefined, '05', '5', undefined, undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
+  ['2024', undefined, undefined, undefined, undefined, '027', undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
+  ['2024', undefined, undefined, undefined, undefined, '027', '24:00:00', undefined, undefined, undefined, undefined, undefined, undefined, '+1000'],
+  ['2024', undefined, undefined, undefined, undefined, '027', undefined, '12', '168', undefined, undefined, undefined, undefined, '+1000'],
+  ['2024', undefined, undefined, undefined, undefined, '027', undefined, '12', undefined, '30', '168', undefined, undefined, '+1000'],
+]
+
+export const iso8601DateCaptureGroupNumbers = [1, 3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17]
