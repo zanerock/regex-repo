@@ -29,7 +29,10 @@ $(SDLC_TEST_FILES_BUILT) &: $(SDLC_ALL_JS_FILES_SRC)
 		--source-maps=inline \
 		$(SRC)
 
-$(SDLC_TEST_PASS_MARKER) $(SDLC_TEST_REPORT) $(TEST_STAGING)/coverage &: package.json $(SDLC_TEST_FILES_BUILT) # $(SDLC_TEST_DATA_BUILT)
+test-staging/expected-exports.json: $(SDLC_ALL_JS_FILES_SRC)
+	bash scripts/extract-exports.sh
+
+$(SDLC_TEST_PASS_MARKER) $(SDLC_TEST_REPORT) $(TEST_STAGING)/coverage &: package.json $(SDLC_TEST_FILES_BUILT) test-staging/expected-exports.json # $(SDLC_TEST_DATA_BUILT)
 	rm -rf $@
 	mkdir -p $(dir $@)
 	echo -n 'Test git rev: ' > $(SDLC_TEST_REPORT)
