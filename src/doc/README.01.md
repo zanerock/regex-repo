@@ -22,7 +22,7 @@ const verified = emailRe.test(userInput)
 
 ## Regex reference
 
-Each regular expression listed below is paired with an embeddable string named `xxxString`. E.g., `rgbRe` is paired with `rgbReString`. Each Re will only match strings that are the given type and nothing else. I.e., the RE begins with '^' and ends with '$'. The `xxxReString` can be used for partial matches, `matchAll`s, and used as part of larger expressions. E.g., to find all unique CSS RGB colors used in a style sheet, you might do something like:
+Each regular expression listed below is paired with an embeddable string named `xxxString`. E.g., `rgbRe` is paired with `rgbReString` (with a couple exceptions where noted). Each Re will only match strings that are the given type and nothing else. I.e., the RE begins with '^' and ends with '$'. The `xxxReString` can be used for partial matches, `matchAll`s, and used as part of larger expressions. E.g., to find all unique CSS RGB colors used in a style sheet, you might do something like:
 
 ```javascript
 import { rgbReString } from '@liquid-labs/regex-repo'

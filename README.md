@@ -39,7 +39,10 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
 - Constants:
   - <span id="global-constant-AWS-index"></span>_AWS_
     - [`awsS3BucketNameRe`](#awsS3BucketNameRe): Matches (most) valid S3 bucket name.
+    - [`awsS3BucketNameReString`](#awsS3BucketNameReString): An RE ready string that matches (most) valid S3 bucket names.
     - [`awsS3TaBucketNameRe`](#awsS3TaBucketNameRe): Matches (most) S3 Transfer Acceleration compatible S3 bucket name.
+    - [`awsS3TaBucketNameReString`](#awsS3TaBucketNameReString): An RE ready string that matches (most) valid S3 Transfer Acceleration compatible bucket names.
+    - [`invalidS3TaBucketNameReString`](#invalidS3TaBucketNameReString): An RE ready string that matches excluded S3 Transfer Acceleration compatible bucket names that would be matched by `awsS3TaBucketNameReString`.
   - <span id="global-constant-Contacts-index"></span>_Contacts_
     - [`emailRe`](#emailRe): Match most valid emails.
     - [`usPhoneRe`](#usPhoneRe): Matches US phone numbers with optional country code and area code.
@@ -71,13 +74,15 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
     - [`iso8601DateRe`](#iso8601DateRe): Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z.
     - [`iso8601DateReString`](#iso8601DateReString): Matches the time designation portion of an ISO 8601 date+time.
     - [`iso8601DateTimeRe`](#iso8601DateTimeRe): Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) _requiring_ both date and time components.
+    - [`iso8601DayRe`](#iso8601DayRe): An RE ready string that matches the day designation portion of an ISO 8601 date+time.
     - [`iso8601DayReString`](#iso8601DayReString): An RE ready string that matches the day designation portion of an ISO 8601 date+time.
+    - [`iso8601TimeRe`](#iso8601TimeRe): An RE ready string that matches the time designation portion of an ISO 8601 date+time.
     - [`militaryTimeRe`](#militaryTimeRe): Matches military time style 'HHMM' string.
     - [`rfc2822DateRe`](#rfc2822DateRe): Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992 12:12 UTC'.
-    - [`rfc2822DayReString`](#rfc2822DayReString): An RE ready string that matches the day designation portion of an RFC 2822 date+time.
-    - [`rfc2822TimeReString`](#rfc2822TimeReString): An RE ready string that matches the time designation portion of an RFC 2822 date+time.
+    - [`rfc2822DayRe`](#rfc2822DayRe): Matches the day designation portion of an RFC 2822 date+time.
+    - [`rfc2822TimeRe`](#rfc2822TimeRe): Matches the time designation portion of an RFC 2822 date+time.
     - [`timeRe`](#timeRe): Matches a twelve hour time designation, requires AM or PM designation.
-    - [`timezoneReString`](#timezoneReString): An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion.
+    - [`timezoneRe`](#timezoneRe): Matches a general timezone designation; compliant with RFC 2822 timezone portion.
     - [`twentyFourHourTimeRe`](#twentyFourHourTimeRe): Matches a twenty-four hour time designationAllows optional leading 0 in hour.
     - [`usDateRe`](#usDateRe): Matches a US style 'MM/DD/YYYY' string.
   - <span id="global-constant-Domain-names-index"></span>_Domain names_
@@ -115,16 +120,39 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
     - [`urlRe`](#urlRe): Matches a valid, generic URL.
 
 <a id="awsS3BucketNameRe"></a>
-### `awsS3BucketNameRe` <sup>↱<sup>[source code](./src/aws.js#L36)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
+### `awsS3BucketNameRe` <sup>↱<sup>[source code](./src/aws.js#L64)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches (most) valid S3 bucket name. Note `awsS3BucketNameReString` cannot be used for partial matches. Does not
-enforce 63 character limit.
+enforce 63 character limit. Due to checking for invalid S3 bucket names, `awsS3BucketNameReString` embeds '^' and
+'$' and so cannot be used for partial matches.
+
+<a id="awsS3BucketNameReString"></a>
+### `awsS3BucketNameReString` <sup>↱<sup>[source code](./src/aws.js#L54)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
+
+An RE ready string that matches (most) valid S3 bucket names. When using this partial, you should verify the results
+do not match `invalidS3PartialsReString`. Because of the way the RE is constructed, this is one case where the
+partial string is not the same as that used to construct the `awsS3BucketNameRe` RE.
 
 <a id="awsS3TaBucketNameRe"></a>
-### `awsS3TaBucketNameRe` <sup>↱<sup>[source code](./src/aws.js#L27)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
+### `awsS3TaBucketNameRe` <sup>↱<sup>[source code](./src/aws.js#L46)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches (most) S3 Transfer Acceleration compatible S3 bucket name. Note `awsS3TaBucketNameReString` cannot be used
 for partial matches.
+
+<a id="awsS3TaBucketNameReString"></a>
+### `awsS3TaBucketNameReString` <sup>↱<sup>[source code](./src/aws.js#L26)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
+
+An RE ready string that matches (most) valid S3 Transfer Acceleration compatible bucket names. When using this
+partial, you should verify the results do not match `invalidS3TaBucketNameReString`. Because of the way the RE
+is constructed, this is one case where the partial string is not the same as that used to construct the
+`awsS3TaBucketNameRe` RE.
+
+<a id="invalidS3TaBucketNameReString"></a>
+### `invalidS3TaBucketNameReString` <sup>↱<sup>[source code](./src/aws.js#L34)</sup></sup> <sup>⇧<sup>[AWS index](#global-constant-AWS-index) | [global index](#global-constant-index)</sup></sup>
+
+An RE ready string that matches excluded S3 Transfer Acceleration compatible bucket names that would be matched
+by `awsS3TaBucketNameReString`. Because of the way the RE is constructed, this is one case where the partial string
+is not the same as that used to construct the `invalidS3TaBucketNameRe` RE.
 
 <a id="emailRe"></a>
 ### `emailRe` <sup>↱<sup>[source code](./src/contacts.js#L43)</sup></sup> <sup>⇧<sup>[Contacts index](#global-constant-Contacts-index) | [global index](#global-constant-index)</sup></sup>
@@ -243,7 +271,7 @@ Matches a 0 to 360 float as used in CSS color specifications.
 Matches a 0 to 360 integer as used in CSS color specifications.
 
 <a id="intlDateRe"></a>
-### `intlDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L155)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `intlDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L193)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an international style 'YYYY/MM/DD' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for
 month and day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
@@ -253,7 +281,7 @@ month and day and 1-4 digits for the year. Also accepts a + or - before the year
 - Group 4: day
 
 <a id="iso8601DateRe"></a>
-### `iso8601DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L75)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L107)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20240101T1212Z. Provides matching groups:
 - Group 1: year
@@ -274,22 +302,40 @@ Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date time like '20
 (Groups 2, 11, and 13 are internal back references.)
 
 <a id="iso8601DateReString"></a>
-### `iso8601DateReString` <sup>↱<sup>[source code](./src/date-times.mjs#L53)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateReString` <sup>↱<sup>[source code](./src/date-times.mjs#L85)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
-- Group 1: special end of day time
-- Group 3: hours
-- Group 4: fraction of hour
-- Group 5: minutes
-- Group 6: fraction of minute
-- Group 7: seconds
-- Group 8: fraction of seconds
+- Group 1: year
+- Group 3: month
+- Group 4: day of month
+- Group 5: week of year
+- Group 6: day of week date
+- Group 7: ordinal or Julian date
+- Group 8: special end of day time
+- Group 10: hour
+- Group 11: decimal fraction of hour
+- Group 13: minute
+- Group 14: decimal fraction of minute
+- Group 15: seconds
+- Group 16: decimal fraction of a second
+- Group 17: timezone designation
 
 <a id="iso8601DateTimeRe"></a>
-### `iso8601DateTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L84)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `iso8601DateTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L116)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) _requiring_ both date and time components. See
 [iso8601DateRe](#iso8601DateRe) for matching groups.
+
+<a id="iso8601DayRe"></a>
+### `iso8601DayRe` <sup>↱<sup>[source code](./src/date-times.mjs#L43)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+
+An RE ready string that matches the day designation portion of an ISO 8601 date+time. Provides matching groups:
+- Group 1: year
+- Group 3: month
+- Group 4: day of month
+- Group 5: week of year
+- Group 6: day of week date
+- Group 7: ordinal or Julian date
 
 <a id="iso8601DayReString"></a>
 ### `iso8601DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L31)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
@@ -302,8 +348,20 @@ An RE ready string that matches the day designation portion of an ISO 8601 date+
 - Group 6: day of week date
 - Group 7: ordinal or Julian date
 
+<a id="iso8601TimeRe"></a>
+### `iso8601TimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L65)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+
+An RE ready string that matches the time designation portion of an ISO 8601 date+time. Provides matching groups:
+- Group 1: special end of day time
+- Group 3: hours
+- Group 4: fraction of hour
+- Group 5: minutes
+- Group 6: fraction of minute
+- Group 7: seconds
+- Group 8: fraction of seconds
+
 <a id="militaryTimeRe"></a>
-### `militaryTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L166)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `militaryTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L204)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches military time style 'HHMM' string. Provides capture groups:
 - Group 1: special 2400 time
@@ -311,7 +369,7 @@ Matches military time style 'HHMM' string. Provides capture groups:
 - Group 3: minutes
 
 <a id="rfc2822DateRe"></a>
-### `rfc2822DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L127)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `rfc2822DateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L165)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3) style date like 'Mon, 6 Jan 1992 12:12 UTC'. Provides matching groups:
 - Group 1: day of week
@@ -323,26 +381,26 @@ Matches an [RFC 2822](https://datatracker.ietf.org/doc/html/rfc2822#section-3.3)
 - Group 7: second
 - Group 8: time zone
 
-<a id="rfc2822DayReString"></a>
-### `rfc2822DayReString` <sup>↱<sup>[source code](./src/date-times.mjs#L94)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+<a id="rfc2822DayRe"></a>
+### `rfc2822DayRe` <sup>↱<sup>[source code](./src/date-times.mjs#L128)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
+Matches the day designation portion of an RFC 2822 date+time. Provides matching groups:
 - Group 1: day of week name
 - Group 2: day of month
 - Group 3: month name
 - Group 4: year
 
-<a id="rfc2822TimeReString"></a>
-### `rfc2822TimeReString` <sup>↱<sup>[source code](./src/date-times.mjs#L111)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+<a id="rfc2822TimeRe"></a>
+### `rfc2822TimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L149)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
+Matches the time designation portion of an RFC 2822 date+time. Provides matching groups:
 - Group 1: hour
 - Group 2: minutes
 - Group 3: seconds
 - Group 4: timezone
 
 <a id="timeRe"></a>
-### `timeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L179)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `timeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L217)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a twelve hour time designation, requires AM or PM designation. Allows optional leading 0 in hour. Provides matching groups:
 - Group 1: hour
@@ -351,14 +409,14 @@ Matches a twelve hour time designation, requires AM or PM designation. Allows op
 - Group 4: decimal fraction seconds
 - Group 5: AM/PM indicator
 
-<a id="timezoneReString"></a>
-### `timezoneReString` <sup>↱<sup>[source code](./src/date-times.mjs#L101)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+<a id="timezoneRe"></a>
+### `timezoneRe` <sup>↱<sup>[source code](./src/date-times.mjs#L137)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
-An RE ready string that matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
+Matches a general timezone designation; compliant with RFC 2822 timezone portion. Provides matching groups:
 - Group 1: timezone
 
 <a id="twentyFourHourTimeRe"></a>
-### `twentyFourHourTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L192)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `twentyFourHourTimeRe` <sup>↱<sup>[source code](./src/date-times.mjs#L230)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a twenty-four hour time designationAllows optional leading 0 in hour. Provides matching groups:
 - Group 1: special 24:00 designation with optional seconds
@@ -368,7 +426,7 @@ Matches a twenty-four hour time designationAllows optional leading 0 in hour. Pr
 - Group 5: decimal fraction seconds
 
 <a id="usDateRe"></a>
-### `usDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L142)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
+### `usDateRe` <sup>↱<sup>[source code](./src/date-times.mjs#L180)</sup></sup> <sup>⇧<sup>[Date time index](#global-constant-Date-time-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a US style 'MM/DD/YYYY' string. Accepts separators '.', '/', '-'. Will except 1 or 2 digits for month and
 day and 1-4 digits for the year. Also accepts a + or - before the year. Provides capture groups:
@@ -429,7 +487,7 @@ Matches a JS resereved word.
 Matches a valid JS variable name.
 
 <a id="ipAddressRe"></a>
-### `ipAddressRe` <sup>↱<sup>[source code](./src/network.mjs#L41)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
+### `ipAddressRe` <sup>↱<sup>[source code](./src/network.mjs#L42)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a string in IP address format. Use 'ipHostRe' to match actually valid IP addresses.
 
@@ -439,12 +497,12 @@ Matches a string in IP address format. Use 'ipHostRe' to match actually valid IP
 Matches a valid, non-localhost IP address.
 
 <a id="ipV6Re"></a>
-### `ipV6Re` <sup>↱<sup>[source code](./src/network.mjs#L69)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
+### `ipV6Re` <sup>↱<sup>[source code](./src/network.mjs#L70)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches a string in IPV6 format.
 
 <a id="ipVFutureRe"></a>
-### `ipVFutureRe` <sup>↱<sup>[source code](./src/network.mjs#L77)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
+### `ipVFutureRe` <sup>↱<sup>[source code](./src/network.mjs#L78)</sup></sup> <sup>⇧<sup>[Network index](#global-constant-Network-index) | [global index](#global-constant-index)</sup></sup>
 
 Matches potential future IP protocols.
 

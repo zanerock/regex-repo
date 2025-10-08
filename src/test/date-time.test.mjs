@@ -30,9 +30,8 @@ import {
 import { validUSDates, invalidUSDates } from './data/us-dates'
 
 groupTest(regex.iso8601DateRe, valid8601Dates, invalid8601Dates, 'ISO 8601 dates')
-groupTestPartial("'" + regex.iso8601DateReString + "'", valid8601Dates, invalid8601Dates, 'ISO 8601 dates', "Hi '", "' there");
-
-[
+groupTestPartial("'" + regex.iso8601DateReString + "'", valid8601Dates, invalid8601Dates, 'ISO 8601 dates', "Hi '", "' there")
+;[
   ['2024-01-15T12:30:40.50+1000', '2024', '01', '15', undefined, undefined, undefined, undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
   ['2024W055T12:30:40.50+1000', '2024', undefined, undefined, '05', '5', undefined, undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
   ['2024027T12:30:40.50+1000', '2024', undefined, undefined, undefined, undefined, '027', undefined, '12', undefined, '30', undefined, '40', '50', '+1000'],
@@ -61,9 +60,8 @@ groupTest(regex.iso8601DateTimeRe, valid8601DateTimes, invalid8601DateTimes, 'IS
 groupTestPartial(regex.iso8601DateTimeReString, valid8601DateTimes, invalid8601DateTimes, 'ISO 8601 date with time')
 
 groupTest(regex.rfc2822DateRe, validRFC2822Dates, invalidRFC2822Dates, 'RFC 2822 dates')
-groupTestPartial("'" + regex.rfc2822DateReString + "'", validRFC2822Dates, invalidRFC2822Dates, 'RFC 2822 dates', "Hi '", "' there");
-
-[
+groupTestPartial("'" + regex.rfc2822DateReString + "'", validRFC2822Dates, invalidRFC2822Dates, 'RFC 2822 dates', "Hi '", "' there")
+;[
   ['Mon, 1 Jan 2024 12:30:40 +1000', 'Mon', '1', 'Jan', '2024', '12', '30', '40', '+1000'],
   ['1 Jan 2024 12:30:40 +1000', undefined, '1', 'Jan', '2024', '12', '30', '40', '+1000'],
 ].forEach(([input, day, dayOfMonth, month, year, hour, minutes, seconds, timezone]) => {
@@ -79,9 +77,8 @@ groupTestPartial("'" + regex.rfc2822DateReString + "'", validRFC2822Dates, inval
 })
 
 groupTest(regex.usDateRe, validUSDates, invalidUSDates, 'US date')
-groupTestPartial(regex.usDateReString, validUSDates, invalidUSDates, 'US date');
-
-[
+groupTestPartial(regex.usDateReString, validUSDates, invalidUSDates, 'US date')
+;[
   ['01/02/2024', '01', '02', undefined, '2024'],
   ['01/02/-2024', '01', '02', '-', '2024'],
 ].forEach(([input, month, day, ceIndicator, year]) => {
@@ -93,9 +90,8 @@ groupTestPartial(regex.usDateReString, validUSDates, invalidUSDates, 'US date');
 })
 
 groupTest(regex.intlDateRe, validIntlDates, invalidIntlDates, 'intl date')
-groupTestPartial(regex.intlDateReString, validIntlDates, invalidIntlDates, 'intl date');
-
-[
+groupTestPartial(regex.intlDateReString, validIntlDates, invalidIntlDates, 'intl date')
+;[
   ['2024/01/02', undefined, '2024', '01', '02'],
   ['-2024/01/02', '-', '2024', '01', '02'],
 ].forEach(([input, ceIndicator, year, month, day]) => {
@@ -107,9 +103,8 @@ groupTestPartial(regex.intlDateReString, validIntlDates, invalidIntlDates, 'intl
 })
 
 groupTest(regex.militaryTimeRe, validMilTimes, invalidMilTimes, 'military time')
-groupTestPartial(regex.militaryTimeReString, validMilTimes, invalidMilTimes, 'military time');
-
-[
+groupTestPartial(regex.militaryTimeReString, validMilTimes, invalidMilTimes, 'military time')
+;[
   ['2400', '2400', undefined, undefined],
   ['2230', undefined, '22', '30'],
 ].forEach(([input, endOfDay, hours, minutes]) => {
@@ -120,9 +115,8 @@ groupTestPartial(regex.militaryTimeReString, validMilTimes, invalidMilTimes, 'mi
 })
 
 groupTest(regex.timeRe, validTimes, invalidTimes, 'time (12 hr)')
-groupTestPartial(regex.timeReString, validTimes, invalidTimes, 'time (12 hr)');
-
-[
+groupTestPartial(regex.timeReString, validTimes, invalidTimes, 'time (12 hr)')
+;[
   ['12:00 AM', '12', '00', undefined, undefined, 'AM'],
   ['8:30:12.93 PM', '8', '30', '12', '93', 'PM'],
 ].forEach(([input, hours, minutes, seconds, secFrac, amPM]) => {
@@ -135,9 +129,8 @@ groupTestPartial(regex.timeReString, validTimes, invalidTimes, 'time (12 hr)');
 })
 
 groupTest(regex.twentyFourHourTimeRe, valid24HrTimes, invalid24HrTimes, '24-hour time')
-groupTestPartial(regex.twentyFourHourTimeReString, valid24HrTimes, invalid24HrTimes, '24-hour time');
-
-[
+groupTestPartial(regex.twentyFourHourTimeReString, valid24HrTimes, invalid24HrTimes, '24-hour time')
+;[
   ['12:00', undefined, '12', '00', undefined, undefined],
   ['8:30:12.93', undefined, '8', '30', '12', '93'],
   ['24:00', '24:00', undefined, undefined, undefined, undefined],
