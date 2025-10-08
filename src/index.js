@@ -33,4 +33,6 @@ export * from './npm'
 
 export * from './numbers'
 
+export * from './semver'
+
 export * from './url'
