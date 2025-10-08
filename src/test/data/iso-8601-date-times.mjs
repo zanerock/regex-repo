@@ -129,7 +129,7 @@ export const iso8601DayCaptureGroupInputs = [
   '2024',
   '2024-W05-5',
   '2024W055',
-  '2024W-05',
+  '2024-W05',
   '2024W05',
   '2024-027',
 ]
@@ -139,6 +139,8 @@ export const iso8601DayCaptureGroupMatches = [
   ['2024', '01', undefined, undefined, undefined, undefined],
   ['2024', undefined, undefined, undefined, undefined, undefined],
   ['2024', undefined, undefined, '05', '5', undefined],
+  ['2024', undefined, undefined, '05', '5', undefined],
+  ['2024', undefined, undefined, '05', undefined, undefined],
   ['2024', undefined, undefined, '05', undefined, undefined],
   ['2024', undefined, undefined, undefined, undefined, '027'],
 ]

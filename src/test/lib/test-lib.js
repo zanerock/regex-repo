@@ -35,25 +35,14 @@ export const groupTestPartial = (reString, validData, invalidData, desc, prefix 
   groupTestHelper(re, invalidData.map((d) => prefix + d + suffix), false, desc + ' partial match')
 }
 
-export const testCaptureGroups = (re, inputs, expectedMatches, desc) => {
-  desc += ` (${re.toString()})`
-  inputs.forEach((input, index) => {
-    const expected = expectedMatches[index]
-    test(`${desc} should extract capture groups from '${input}'`, () => {
-      const match = re.exec(input)
-      expect(match).not.toBeNull()
-      if (match) {
-        // Test each capture group (starting from index 1, as 0 is the full match)
-        expected.forEach((expectedValue, groupIndex) => {
-          const actualValue = match[groupIndex + 1]
-          expect(actualValue).toBe(expectedValue)
-        })
-      }
-    })
-  })
-}
+export const testCaptureGroups = (re, inputs, expectedMatches, groupNumbers, desc) => {
+  // Handle optional groupNumbers parameter
+  // If groupNumbers is a string, it's actually the desc parameter
+  if (typeof groupNumbers === 'string' && desc === undefined) {
+    desc = groupNumbers
+    groupNumbers = undefined
+  }
 
-export const testCaptureGroupsByNumber = (re, inputs, expectedMatches, groupNumbers, desc) => {
   desc += ` (${re.toString()})`
   inputs.forEach((input, index) => {
     const expected = expectedMatches[index]
@@ -61,9 +50,9 @@ export const testCaptureGroupsByNumber = (re, inputs, expectedMatches, groupNumb
       const match = re.exec(input)
       expect(match).not.toBeNull()
       if (match) {
-        // Test specific capture groups by their group numbers
+        // Test capture groups by number if provided, otherwise sequentially
         expected.forEach((expectedValue, arrayIndex) => {
-          const groupNumber = groupNumbers[arrayIndex]
+          const groupNumber = groupNumbers ? groupNumbers[arrayIndex] : arrayIndex + 1
           const actualValue = match[groupNumber]
           expect(actualValue).toBe(expectedValue)
         })
@@ -71,3 +60,5 @@ export const testCaptureGroupsByNumber = (re, inputs, expectedMatches, groupNumb
     })
   })
 }
+
+export const testCaptureGroupsByNumber = testCaptureGroups
