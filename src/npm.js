@@ -36,7 +36,7 @@ const npmPackageTagReString = `^(?!${semver2RangeReString}$)`
 export const npmPackageTagRe = new RegExp(npmPackageTagReString)
 
 // since a package spec is a semver or not a semver, any non-blank string is valid
-export const npmPackageSpecReString = `.+`
+export const npmPackageSpecReString = '.+'
 
 /**
  * Matches an NPM package specification. Note, because any string that cannot be confused with a semver is, in theory,
