@@ -91,8 +91,9 @@ export const semver2RangeReString = rangeSet
 
 /**
  * Matches a semantic versioning range specification. Allows for optional 'v' prefix (equivalent to '='), and otherwise
- * follows the original spec's BNF grammar. This means that an 'and' space between versions must be a single space and
- * also requires exactly one space around hyphenated ranges.
+ * follows the [original spec's BNF grammar](https://docs.npmjs.com/cli/v6/using-npm/semver#range-grammar). This means
+ * that an 'and' space between versions must be a single space and also requires exactly one space around hyphenated
+ * ranges.
  * @category semver
  */
 export const semver2RangeRe = lockdownRe(semver2RangeReString)
