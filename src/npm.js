@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import { lockdownRe } from './lib/lockdown-re'
+import { semver2RangeReString } from './semver'
 
 export const npmPackageNameReString = '(@[a-z0-9-~][a-z0-9-._~]*/)?([a-z0-9-~][a-z0-9-._~]*)'
 
@@ -24,3 +25,21 @@ export const npmPackageNameReString = '(@[a-z0-9-~][a-z0-9-._~]*/)?([a-z0-9-~][a
  * @category NPM
  */
 export const npmPackageNameRe = lockdownRe(npmPackageNameReString)
+
+export const npmPackageTagReString = `(?!${semver2RangeReString})`
+
+/**
+ * Matches an NPM package tag. A tag can, in theory, be anything that cannot be confused with a semver range.
+ * @category NPM
+ */
+export const npmPackageTagRe = lockdownRe(npmPackageTagReString)
+
+// In practice, this is a complicated way of saying "anything" because any non-semver range is a valid tag.
+export const npmPackageSpecReString = `(?!${semver2RangeReString}|${npmPackageTagReString})`
+
+/**
+ * Matches an NPM package specification. Note, because any string that cannot be confused with a semver is, in theory,
+ * a valid tag, this could be any string.
+ * @category NPM
+ */
+export const npmPackageSpecRe = lockdownRe(npmPackageSpecReString)
